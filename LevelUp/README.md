@@ -9,7 +9,7 @@
 
 Stop putting leveling logic inside your `Update()` loop. The LevelUp Engine provides a clean, decoupled architecture to manage experience, levels, and stat curves.
 
-![LevelUp Engine Card](card.png)
+![LevelUp Engine Card](level_card.png)
 
 ## Key Features
 * ✅ **Strategy Pattern:** Swap leveling math (Linear, Exponential, MMO) instantly via Inspector.

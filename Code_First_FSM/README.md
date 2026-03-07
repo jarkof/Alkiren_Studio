@@ -9,7 +9,7 @@
 
 Stop writing boolean flags in your `Update()` loop. This strictly typed framework lets you build complex AI and character logic using nested states, event triggers, and declarative transitions.
 
-![Code-First FSM Card](FSM_Card.png)
+![Code-First FSM Card](fsm_card.png)
 
 ## Key Features
 * ✅ **Hierarchical (HFSM):** Nest states inside states (e.g., `Grounded` > `Walk`).

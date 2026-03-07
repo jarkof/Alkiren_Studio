@@ -9,7 +9,7 @@
 
 Stop hardcoding spells and combat logic. This system decouples **Logic** (C#) from **Data** (ScriptableObjects), allowing designers to assemble complex abilities—like Fireballs, AoE Explosions, and Status Effects—entirely in the Inspector.
 
-![Ability System Card](alkiren-asset.png)
+![Ability System Card](ability_card.png)
 
 ## Key Features
 * ✅ **Strategy Pattern:** Swap logic like Lego blocks (e.g., change `RaycastTarget` to `AoETarget` instantly).
