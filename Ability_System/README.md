@@ -1,11 +1,11 @@
-[← Back to Main Portfolio](../README.md)
+[← Back to Main Portfolio](../README.md) | [Studio Portal](https://mundane-76d8e.web.app)
 
-![Unity](https://img.shields.io/badge/Unity-2021.3%2B-000000?style=for-the-badge&logo=unity)
+![Compatibility](https://img.shields.io/badge/Compatibility-Unity%202021.3%2B-555555?style=for-the-badge)
 ![C#](https://img.shields.io/badge/C%23-Clean_Code-239120?style=for-the-badge&logo=c-sharp)
 ![Architecture](https://img.shields.io/badge/Architecture-Strategy_Pattern-blue?style=for-the-badge)
 
 # Data-Driven Ability System
-**The Command & Strategy Framework for Unity.**
+**The Command & Strategy Framework Compatible with Unity® & Modern C# Engines.**
 
 Stop hardcoding spells and combat logic. This system decouples **Logic** (C#) from **Data** (ScriptableObjects), allowing designers to assemble complex abilities—like Fireballs, AoE Explosions, and Status Effects—entirely in the Inspector.
 

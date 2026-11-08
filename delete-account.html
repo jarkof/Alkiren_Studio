@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account & Data Deletion - Mundane | Alkiren Studio</title>
+  <style>
+    :root {
+      --bg: #0f141c;
+      --card-bg: #18202c;
+      --border: #283548;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --primary: #ef4444;
+      --primary-hover: #dc2626;
+      --accent: #38bdf8;
+      --btn-bg: #8b5cf6;
+      --btn-hover: #7c3aed;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 24px 16px;
+    }
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px 28px;
+    }
+    h1 { font-size: 1.8rem; color: #fff; margin-bottom: 8px; }
+    p { margin-bottom: 16px; color: var(--text); }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid var(--primary);
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      color: #fca5a5;
+      margin-bottom: 16px;
+    }
+    .option-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .option-title {
+      font-size: 1.2rem;
+      color: #fff;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    ol, ul { padding-left: 20px; margin-bottom: 14px; }
+    li { margin-bottom: 6px; }
+    .btn {
+      display: inline-block;
+      padding: 10px 18px;
+      background-color: var(--btn-bg);
+      color: #fff;
+      font-weight: 600;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background-color 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background-color: var(--btn-hover);
+    }
+    .btn-danger {
+      background-color: var(--primary);
+    }
+    .btn-danger:hover {
+      background-color: var(--primary-hover);
+    }
+    input[type="email"] {
+      width: 100%;
+      padding: 10px 12px;
+      background: #0f141c;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: #fff;
+      font-size: 1rem;
+      margin-bottom: 12px;
+    }
+    input[type="email"]:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    .notice {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 10px;
+    }
+    footer {
+      text-align: center;
+      margin-top: 32px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="badge">Google Play Data Safety Compliance</div>
+    <h1>Mundane Account &amp; Data Deletion</h1>
+    <p>We respect your right to control and permanently delete your data. You can delete your account and all associated gameplay information through the mobile app or via this web page.</p>
+
+    <!-- Option 1: In App -->
+    <div class="option-card">
+      <div class="option-title">⚡ Option 1: Immediate In-App Deletion (Recommended)</div>
+      <p>If you still have the Mundane app installed on your device, you can instantly and irreversibly delete all local and cloud data yourself:</p>
+      <ol>
+        <li>Open the <strong>Mundane</strong> app.</li>
+        <li>Tap the <strong>Settings (Gear)</strong> icon in the top right.</li>
+        <li>Scroll down to the <strong>Danger Zone</strong> section.</li>
+        <li>Tap <strong>"Delete Account &amp; Wipe Progress"</strong>.</li>
+        <li>Confirm the deletion prompt.</li>
+      </ol>
+      <p class="notice">This immediately wipes your local storage, deletes your synced Firestore profile, and deletes your Firebase user account.</p>
+    </div>
+
+    <!-- Option 2: Web / Email Request -->
+    <div class="option-card">
+      <div class="option-title">🌐 Option 2: Web Deletion Request (App Uninstalled)</div>
+      <p>If you uninstalled Mundane and want your synced cloud backup permanently purged from Google Firebase Firestore, enter the Google Account email you used to sign in:</p>
+
+      <form id="deleteForm" onsubmit="handleWebDelete(event)">
+        <label for="userEmail" style="display:block; margin-bottom:6px; font-size:0.9rem; color:var(--text-muted);">Your Google Sign-In Email:</label>
+        <input type="email" id="userEmail" placeholder="e.g. hero@gmail.com" required>
+        <button type="submit" class="btn btn-danger">Submit Account Deletion Request</button>
+      </form>
+
+      <div id="confirmation" style="display:none; margin-top:16px; padding:12px; background:rgba(34,197,94,0.15); border:1px solid #22c55e; border-radius:6px; color:#86efac;">
+        <strong>Request Submitted!</strong> Opening your email client to verify the request. Once verified, your cloud profile will be purged within 30 days.
+      </div>
+    </div>
+
+    <!-- Data Purge Details -->
+    <div class="option-card">
+      <div class="option-title">ℹ️ What Data Is Deleted?</div>
+      <ul>
+        <li><strong>Character Profile:</strong> Player nickname, level, stats, and gold currency.</li>
+        <li><strong>Companions &amp; Inventory:</strong> Partner rosters, acquired spells, items, and artifacts.</li>
+        <li><strong>Task History &amp; Chronicles:</strong> Completed task titles, streaks, and narrative event logs.</li>
+        <li><strong>Authentication Record:</strong> Your Firebase Auth UID is permanently revoked.</li>
+      </ul>
+      <p class="notice"><em>Retention Policy:</em> Local device data is destroyed immediately upon in-app reset or app uninstallation. Cloud records requested via web are verified and purged within 30 calendar days per GDPR/CCPA standards.</p>
+    </div>
+
+    <footer>
+      &copy; 2026 Alkiren Studio. Contact: <a href="mailto:alkiren44@gmail.com">alkiren44@gmail.com</a> | <a href="privacy-policy.html">Privacy Policy</a>
+    </footer>
+  </div>
+
+  <script>
+    function handleWebDelete(e) {
+      e.preventDefault();
+      const email = document.getElementById('userEmail').value.trim();
+      if (!email) return;
+
+      document.getElementById('confirmation').style.display = 'block';
+
+      const subject = encodeURIComponent("Mundane Account Deletion Request");
+      const body = encodeURIComponent(
+        "Hello Alkiren Studio Support,\n\n" +
+        "Please permanently delete my Mundane account and all associated cloud data.\n\n" +
+        "Associated Google Sign-In Email: " + email + "\n\n" +
+        "I understand that this action is irreversible.\n"
+      );
+
+      setTimeout(() => {
+        window.location.href = `mailto:alkiren44@gmail.com?subject=${subject}&body=${body}`;
+      }, 800);
+    }
+  </script>
+</body>
+</html>

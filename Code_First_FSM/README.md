@@ -1,11 +1,11 @@
-[← Back to Main Portfolio](../README.md)
+[← Back to Main Portfolio](../README.md) | [Studio Portal](https://mundane-76d8e.web.app)
 
-![Unity](https://img.shields.io/badge/Unity-2021.3%2B-000000?style=for-the-badge&logo=unity)
+![Compatibility](https://img.shields.io/badge/Compatibility-Unity%202021.3%2B-555555?style=for-the-badge)
 ![C#](https://img.shields.io/badge/C%23-Clean_Code-239120?style=for-the-badge&logo=c-sharp)
 ![Architecture](https://img.shields.io/badge/Architecture-Strategy_Pattern-blue?style=for-the-badge)
 
 # 🧠 Code-First FSM
-**The Hierarchical State Machine for Clean Architecture.**
+**The Hierarchical State Machine Compatible with Unity® & Modern C# Engines.**
 
 Stop writing boolean flags in your `Update()` loop. This strictly typed framework lets you build complex AI and character logic using nested states, event triggers, and declarative transitions.
 

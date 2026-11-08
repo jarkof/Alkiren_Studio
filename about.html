@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About - Alkiren Studio</title>
+  <style>
+    :root {
+      --bg: #0b0f17;
+      --card-bg: #141c28;
+      --border: #233044;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --primary: #8b5cf6;
+      --primary-hover: #7c3aed;
+      --accent: #38bdf8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    nav {
+      background: #101622;
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .nav-logo-icon {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+      vertical-align: middle;
+      display: inline-block;
+    }
+    nav .logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    nav .nav-links {
+      display: flex;
+      gap: 18px;
+    }
+    nav .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+    nav .nav-links a:hover, nav .nav-links a.active {
+      color: var(--accent);
+    }
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 36px 32px;
+      margin-bottom: 30px;
+    }
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 16px;
+      color: #fff;
+    }
+    h2 {
+      font-size: 1.3rem;
+      color: var(--accent);
+      margin-top: 28px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 6px;
+    }
+    p {
+      color: var(--text);
+      margin-bottom: 16px;
+      font-size: 1.05rem;
+    }
+    .bio-placeholder {
+      background: rgba(56, 189, 248, 0.05);
+      border: 1px dashed var(--accent);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 16px 0;
+      color: #bae6fd;
+      font-style: italic;
+    }
+    ul {
+      padding-left: 24px;
+      margin-bottom: 20px;
+      color: var(--text-muted);
+    }
+    li {
+      margin-bottom: 8px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 600;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn:hover {
+      background: var(--primary-hover);
+    }
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 30px 20px;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    footer a { color: var(--accent); text-decoration: none; margin: 0 8px; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="logo">
+      <img src="assets/icon.png" alt="Alkiren Studio Logo" class="nav-logo-icon">
+      Alkiren Studio
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Projects</a>
+      <a href="about.html" class="active">About</a>
+      <a href="privacy-policy.html">Privacy</a>
+      <a href="mailto:alkiren44@gmail.com">Contact</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="card">
+      <h1>About Alkiren Studio</h1>
+      
+      <h2>👋 Who I Am</h2>
+      <p>I am an independent solo game developer and software engineer working under the pen name <strong>Alkiren Studio</strong>. I build games and developer tools that focus on clean systems, thoughtful mechanics, and giving players meaningful experiences.</p>
+
+      <!-- Personal bio section ready for user editing -->
+      <div class="bio-placeholder">
+        <p style="margin-bottom: 8px; font-weight: 600; color: #fff;">[Personal Developer Notes]</p>
+        <p style="margin-bottom: 0;">Hi, I'm the solo developer behind Alkiren Studio. I enjoy building immersive RPG systems and clean, decoupled software architectures. When I'm not designing game mechanics, I'm working to make productivity tools that are actually fun to use every single day.</p>
+      </div>
+
+      <h2>⚔️ Why I Built Mundane</h2>
+      <p>Mundane started from a simple personal frustration: everyday productivity apps and habit trackers felt like boring homework. Checking off a task shouldn't feel like filling out a spreadsheet—it should feel like completing a meaningful quest in an unfolding fantasy adventure.</p>
+      <p>I wanted a game with genuine RPG depth: companion creatures you actually bond with and train, dynamic journal chronicles written about your day's achievements, a living tavern with quirky characters, and tactical loot encounters. Most importantly, I wanted it built with respect for player privacy—local-first data storage and zero intrusive advertisements.</p>
+
+      <h2>📦 Legacy Architecture Tools</h2>
+      <p>Earlier in my journey, I built open-source C# frameworks for Unity game development (like the Code-First FSM, LevelUp Engine, and Ability System) to solve code-architecture headaches. While those libraries remain freely available, my full active focus and passion are now poured into building Mundane.</p>
+
+      <h2>📫 Get in Touch</h2>
+      <p>Whether you're a player with feedback on Mundane or a fellow developer interested in my architecture systems, feel free to reach out:</p>
+      <p style="margin-top: 16px;">
+        <a href="mailto:alkiren44@gmail.com" class="btn">Email alkiren44@gmail.com</a>
+      </p>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Alkiren Studio. All rights reserved.</p>
+    <p style="margin-top: 8px;">
+      <a href="index.html">Projects</a> &bull;
+      <a href="about.html">About</a> &bull;
+      <a href="privacy-policy.html">Privacy Policy</a> &bull;
+      <a href="delete-account.html">Data Deletion</a> &bull;
+      <a href="mailto:alkiren44@gmail.com">Contact</a>
+    </p>
+  </footer>
+</body>
+</html>
