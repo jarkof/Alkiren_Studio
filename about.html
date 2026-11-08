@@ -48,18 +48,28 @@
       align-items: center;
       gap: 10px;
     }
-    nav .nav-links {
+        nav .nav-links {
       display: flex;
-      gap: 18px;
+      gap: 8px;
     }
     nav .nav-links a {
       color: var(--text-muted);
       text-decoration: none;
       font-size: 0.95rem;
-      transition: color 0.2s;
+      padding: 6px 14px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      outline: none;
     }
-    nav .nav-links a:hover, nav .nav-links a.active {
-      color: var(--accent);
+    nav .nav-links a:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.06);
+    }
+    nav .nav-links a.active {
+      color: #fff;
+      background: rgba(139, 92, 246, 0.2);
+      border: 1px solid rgba(139, 92, 246, 0.4);
+      font-weight: 600;
     }
     .container {
       max-width: 800px;
@@ -132,16 +142,15 @@
   </style>
 </head>
 <body>
-  <nav>
+      <nav>
     <a href="index.html" class="logo">
-      <img src="assets/icon.png" alt="Alkiren Studio Logo" class="nav-logo-icon">
+      <img src="assets/alkiren_shards_emblem.png?v=3" alt="Alkiren Studio Logo" class="nav-logo-icon">
       Alkiren Studio
     </a>
     <div class="nav-links">
-      <a href="index.html">Projects</a>
+      <a href="index.html">Home</a>
       <a href="about.html" class="active">About</a>
-      <a href="privacy-policy.html">Privacy</a>
-      <a href="mailto:alkiren44@gmail.com">Contact</a>
+      <a href="contact.html">Contact</a>
     </div>
   </nav>
 
@@ -180,7 +189,7 @@
       <a href="about.html">About</a> &bull;
       <a href="privacy-policy.html">Privacy Policy</a> &bull;
       <a href="delete-account.html">Data Deletion</a> &bull;
-      <a href="mailto:alkiren44@gmail.com">Contact</a>
+      <a href="contact.html">Contact</a>
     </p>
   </footer>
 </body>
