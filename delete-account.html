@@ -4,18 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Account & Data Deletion - Mundane | Alkiren Studio</title>
+  <link rel="icon" type="image/png" href="assets/alkiren_shards_emblem.png">
+  
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
   <style>
     :root {
-      --bg: #0f141c;
-      --card-bg: #18202c;
-      --border: #283548;
+      --bg: #0b0f17;
+      --card-bg: #141c2a;
+      --border: #243247;
       --text: #e2e8f0;
       --text-muted: #94a3b8;
-      --primary: #ef4444;
-      --primary-hover: #dc2626;
-      --accent: #38bdf8;
-      --btn-bg: #8b5cf6;
-      --btn-hover: #7c3aed;
+      --primary-red: #ef4444;
+      --primary-red-hover: #dc2626;
+      --accent-purple: #8b5cf6;
+      --accent-purple-hover: #7c3aed;
+      --gold: #f59e0b;
+      --green: #22c55e;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -25,8 +33,51 @@
       line-height: 1.6;
       padding: 24px 16px;
     }
+    nav {
+      background: #101622;
+      border: 1px solid var(--border);
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 760px;
+      margin: 0 auto 24px;
+      border-radius: 12px;
+    }
+    .nav-logo-icon {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+      vertical-align: middle;
+      display: inline-block;
+    }
+    nav .logo {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    nav .nav-links {
+      display: flex;
+      gap: 8px;
+    }
+    nav .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      padding: 6px 14px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+    }
+    nav .nav-links a:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.06);
+    }
     .container {
-      max-width: 700px;
+      max-width: 760px;
       margin: 0 auto;
       background: var(--card-bg);
       border: 1px solid var(--border);
@@ -34,74 +85,135 @@
       padding: 32px 28px;
     }
     h1 { font-size: 1.8rem; color: #fff; margin-bottom: 8px; }
-    p { margin-bottom: 16px; color: var(--text); }
+    p { margin-bottom: 16px; color: var(--text); font-size: 0.95rem; }
     .badge {
       display: inline-block;
-      padding: 4px 10px;
-      background: rgba(239, 68, 68, 0.2);
-      border: 1px solid var(--primary);
+      padding: 4px 12px;
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid var(--primary-red);
       border-radius: 9999px;
       font-size: 0.8rem;
+      font-weight: 600;
       color: #fca5a5;
       margin-bottom: 16px;
     }
+    .warning-box {
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-bottom: 24px;
+      color: #fde68a;
+      font-size: 0.9rem;
+    }
+    .warning-box strong { color: #fff; }
     .option-card {
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 20px;
-      margin-bottom: 20px;
+      border-radius: 10px;
+      padding: 22px;
+      margin-bottom: 24px;
     }
     .option-title {
-      font-size: 1.2rem;
+      font-size: 1.15rem;
+      font-weight: 700;
       color: #fff;
-      margin-bottom: 8px;
+      margin-bottom: 12px;
       display: flex;
       align-items: center;
       gap: 8px;
     }
     ol, ul { padding-left: 20px; margin-bottom: 14px; }
-    li { margin-bottom: 6px; }
+    li { margin-bottom: 6px; font-size: 0.95rem; }
     .btn {
-      display: inline-block;
-      padding: 10px 18px;
-      background-color: var(--btn-bg);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 20px;
+      background-color: var(--accent-purple);
       color: #fff;
       font-weight: 600;
-      border-radius: 6px;
+      font-size: 0.95rem;
+      border-radius: 8px;
       text-decoration: none;
-      transition: background-color 0.2s;
+      transition: all 0.2s;
       border: none;
       cursor: pointer;
     }
-    .btn:hover {
-      background-color: var(--btn-hover);
+    .btn:hover { background-color: var(--accent-purple-hover); }
+    .btn-google {
+      background: #ffffff;
+      color: #1e293b;
+      font-weight: 600;
+      border: 1px solid #cbd5e1;
+    }
+    .btn-google:hover {
+      background: #f1f5f9;
     }
     .btn-danger {
-      background-color: var(--primary);
+      background-color: var(--primary-red);
     }
     .btn-danger:hover {
-      background-color: var(--primary-hover);
+      background-color: var(--primary-red-hover);
     }
-    input[type="email"] {
-      width: 100%;
-      padding: 10px 12px;
-      background: #0f141c;
+    .btn-outline {
+      background: transparent;
       border: 1px solid var(--border);
-      border-radius: 6px;
-      color: #fff;
-      font-size: 1rem;
-      margin-bottom: 12px;
-    }
-    input[type="email"]:focus {
-      outline: none;
-      border-color: var(--accent);
-    }
-    .notice {
-      font-size: 0.85rem;
       color: var(--text-muted);
-      margin-top: 10px;
     }
+    .btn-outline:hover {
+      color: #fff;
+      border-color: #475569;
+    }
+    .account-meta-box {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      margin: 16px 0;
+    }
+    .account-meta-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+    }
+    .account-meta-row:last-child { margin-bottom: 0; }
+    .meta-label { color: var(--text-muted); }
+    .meta-value { color: #fff; font-weight: 600; }
+    .status-banner {
+      padding: 14px 16px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      margin-top: 16px;
+    }
+    .status-banner.error {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #fca5a5;
+    }
+    .status-banner.success {
+      background: rgba(34, 197, 94, 0.15);
+      border: 1px solid rgba(34, 197, 94, 0.4);
+      color: #86efac;
+    }
+    .status-banner.info {
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      color: #7dd3fc;
+    }
+    .spinner {
+      border: 3px solid rgba(255, 255, 255, 0.1);
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border-left-color: #fff;
+      animation: spin 1s linear infinite;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     footer {
       text-align: center;
       margin-top: 32px;
@@ -110,42 +222,108 @@
       font-size: 0.85rem;
       color: var(--text-muted);
     }
-    footer a { color: var(--accent); text-decoration: none; }
+    footer a { color: var(--accent-purple); text-decoration: none; margin: 0 6px; }
   </style>
 </head>
 <body>
+
+  <nav>
+    <a href="index.html" class="logo">
+      <img src="assets/alkiren_shards_emblem.png?v=5" alt="Alkiren Studio Logo" class="nav-logo-icon">
+      Alkiren Studio
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </nav>
+
   <div class="container">
-    <div class="badge">Google Play Data Safety Compliance</div>
+    <div class="badge">Google Play Data Safety &amp; GDPR Compliance</div>
     <h1>Mundane Account &amp; Data Deletion</h1>
-    <p>We respect your right to control and permanently delete your data. You can delete your account and all associated gameplay information through the mobile app or via this web page.</p>
+    <p>We respect your privacy and provide complete authority over your personal gameplay records. You can delete your account and all associated cloud data using either method below.</p>
+
+    <!-- Important Notice for Active Installs -->
+    <div class="warning-box">
+      <strong>⚠️ Important for Active Installs:</strong> If the Mundane app is still installed on your device, please wipe your local data inside the app first (<strong>Settings &rarr; Danger Zone &rarr; Delete Account &amp; Wipe Progress</strong>). This ensures your device's local offline cache is completely purged so it cannot re-sync or recreate a new cloud profile on your next launch.
+    </div>
 
     <!-- Option 1: In App -->
     <div class="option-card">
-      <div class="option-title">⚡ Option 1: Immediate In-App Deletion (Recommended)</div>
-      <p>If you still have the Mundane app installed on your device, you can instantly and irreversibly delete all local and cloud data yourself:</p>
+      <div class="option-title">⚡ Option 1: In-App Deletion (Recommended)</div>
+      <p>If you have Mundane installed, in-app deletion instantly purges your local storage, deletes all synced Firestore cloud records, and revokes your authentication profile:</p>
       <ol>
-        <li>Open the <strong>Mundane</strong> app.</li>
-        <li>Tap the <strong>Settings (Gear)</strong> icon in the top right.</li>
+        <li>Open the <strong>Mundane</strong> app on your Android device.</li>
+        <li>Tap the <strong>Settings (Gear)</strong> icon in the sidebar or top bar.</li>
         <li>Scroll down to the <strong>Danger Zone</strong> section.</li>
         <li>Tap <strong>"Delete Account &amp; Wipe Progress"</strong>.</li>
         <li>Confirm the deletion prompt.</li>
       </ol>
-      <p class="notice">This immediately wipes your local storage, deletes your synced Firestore profile, and deletes your Firebase user account.</p>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0;">This completely removes both your on-device storage and cloud backups in real time.</p>
     </div>
 
-    <!-- Option 2: Web / Email Request -->
+    <!-- Option 2: Automated Web Deletion -->
     <div class="option-card">
-      <div class="option-title">🌐 Option 2: Web Deletion Request (App Uninstalled)</div>
-      <p>If you uninstalled Mundane and want your synced cloud backup permanently purged from Google Firebase Firestore, enter the Google Account email you used to sign in:</p>
+      <div class="option-title">🌐 Option 2: Web Deletion Portal (App Uninstalled)</div>
+      <p>If you uninstalled Mundane and want your synced cloud backup permanently purged from our Firebase servers, sign in below with the Google account you used in the game:</p>
 
-      <form id="deleteForm" onsubmit="handleWebDelete(event)">
-        <label for="userEmail" style="display:block; margin-bottom:6px; font-size:0.9rem; color:var(--text-muted);">Your Google Sign-In Email:</label>
-        <input type="email" id="userEmail" placeholder="e.g. hero@gmail.com" required>
-        <button type="submit" class="btn btn-danger">Submit Account Deletion Request</button>
-      </form>
+      <!-- Initial Auth Button Area -->
+      <div id="authArea">
+        <button id="btnGoogleSignIn" class="btn btn-google" onclick="signInWithGoogle()">
+          <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.65v3.03h3.88c2.27-2.09 3.66-5.17 3.66-9.12z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.03c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.24v3.13C3.26 21.36 7.33 24 12 24z"/><path fill="#FBBC05" d="M5.28 14.29c-.25-.72-.38-1.49-.38-2.29s.13-1.57.38-2.29V6.57H1.24C.45 8.14 0 9.99 0 12s.45 3.86 1.24 5.43l4.04-3.14z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.24 6.57l4.04 3.14c.95-2.83 3.6-4.96 6.72-4.96z"/></svg>
+          Sign In with Google to Verify Account
+        </button>
+      </div>
 
-      <div id="confirmation" style="display:none; margin-top:16px; padding:12px; background:rgba(34,197,94,0.15); border:1px solid #22c55e; border-radius:6px; color:#86efac;">
-        <strong>Request Submitted!</strong> Opening your email client to verify the request. Once verified, your cloud profile will be purged within 30 days.
+      <!-- Loading State -->
+      <div id="loadingArea" style="display:none; margin: 16px 0;">
+        <span class="spinner"></span> Checking player database...
+      </div>
+
+      <!-- Not Found State -->
+      <div id="notFoundArea" style="display:none;" class="status-banner error">
+        <strong>No Account Found</strong>
+        <p style="margin-top:6px; margin-bottom:12px;">No active Mundane profile was found in our database for Google Account <strong id="notFoundEmail"></strong>. Your account has no cloud data to delete.</p>
+        <button class="btn btn-outline" onclick="signOutUser()">Sign Out / Try Another Account</button>
+      </div>
+
+      <!-- Confirmation State -->
+      <div id="confirmArea" style="display:none;">
+        <div class="account-meta-box">
+          <div class="account-meta-row">
+            <span class="meta-label">Google Account:</span>
+            <span class="meta-value" id="profileEmail"></span>
+          </div>
+          <div class="account-meta-row">
+            <span class="meta-label">Hero Character:</span>
+            <span class="meta-value" id="profileHeroName"></span>
+          </div>
+          <div class="account-meta-row">
+            <span class="meta-label">Active Companion:</span>
+            <span class="meta-value" id="profileCompanion"></span>
+          </div>
+          <div class="account-meta-row">
+            <span class="meta-label">Companion Level:</span>
+            <span class="meta-value" id="profileCompanionLevel"></span>
+          </div>
+        </div>
+
+        <div class="status-banner error" style="margin-bottom: 16px;">
+          <strong>Permanently Delete Account?</strong>
+          <p style="margin-top: 6px; margin-bottom: 0;">Are you sure you want to permanently delete your Mundane account? This will permanently erase all your hero levels, companion bonds, chronicle history, task archives, and cloud backups from our servers. This action is irreversible.</p>
+        </div>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button id="btnConfirmDelete" class="btn btn-danger" onclick="executePermanentDeletion()">Delete Permanently</button>
+          <button class="btn btn-outline" onclick="signOutUser()">Cancel</button>
+        </div>
+      </div>
+
+      <!-- Deletion Success State -->
+      <div id="successArea" style="display:none;" class="status-banner success">
+        <strong>Account Purged Successfully</strong>
+        <p style="margin-top:6px; margin-bottom:0;">Account and all user data permanently deleted. Your character profile, companions, inventory, and cloud archives have been erased.</p>
       </div>
     </div>
 
@@ -153,38 +331,190 @@
     <div class="option-card">
       <div class="option-title">ℹ️ What Data Is Deleted?</div>
       <ul>
-        <li><strong>Character Profile:</strong> Player nickname, level, stats, and gold currency.</li>
-        <li><strong>Companions &amp; Inventory:</strong> Partner rosters, acquired spells, items, and artifacts.</li>
-        <li><strong>Task History &amp; Chronicles:</strong> Completed task titles, streaks, and narrative event logs.</li>
-        <li><strong>Authentication Record:</strong> Your Firebase Auth UID is permanently revoked.</li>
+        <li><strong>Character Profile:</strong> Player hero name, level, attributes, and currency.</li>
+        <li><strong>Companion Roster &amp; History:</strong> Captured companions, levels, stats, and bonds.</li>
+        <li><strong>Task History &amp; Chronicles:</strong> Completed task archives, streaks, and procedural story recaps.</li>
+        <li><strong>Authentication Records:</strong> Your Firebase Auth UID credentials are permanently revoked.</li>
       </ul>
-      <p class="notice"><em>Retention Policy:</em> Local device data is destroyed immediately upon in-app reset or app uninstallation. Cloud records requested via web are verified and purged within 30 calendar days per GDPR/CCPA standards.</p>
     </div>
 
     <footer>
-      &copy; 2026 Alkiren Studio. Contact: <a href="mailto:alkiren44@gmail.com">alkiren44@gmail.com</a> | <a href="privacy-policy.html">Privacy Policy</a>
+      &copy; 2026 Alkiren Studio &bull;
+      <a href="index.html">Home</a> &bull;
+      <a href="about.html">About</a> &bull;
+      <a href="contact.html">Contact</a> &bull;
+      <a href="privacy-policy.html">Privacy Policy</a>
     </footer>
   </div>
 
   <script>
-    function handleWebDelete(e) {
-      e.preventDefault();
-      const email = document.getElementById('userEmail').value.trim();
-      if (!email) return;
+    // Firebase Web Configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyBff8iUa8WaFjotDhUN3YmM3ct0kPvSe5Q",
+      authDomain: "mundane-76d8e.firebaseapp.com",
+      projectId: "mundane-76d8e",
+      storageBucket: "mundane-76d8e.firebasestorage.app",
+      messagingSenderId: "628620309793",
+      appId: "1:628620309793:web:mundane_web_portal"
+    };
 
-      document.getElementById('confirmation').style.display = 'block';
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
+    const auth = firebase.auth();
+    const db = firebase.firestore();
 
-      const subject = encodeURIComponent("Mundane Account Deletion Request");
-      const body = encodeURIComponent(
-        "Hello Alkiren Studio Support,\n\n" +
-        "Please permanently delete my Mundane account and all associated cloud data.\n\n" +
-        "Associated Google Sign-In Email: " + email + "\n\n" +
-        "I understand that this action is irreversible.\n"
-      );
+    let currentUser = null;
+    let cachedHeroName = "Adventurer";
+    let cachedCompanion = "None";
+    let cachedLevel = "1";
 
-      setTimeout(() => {
-        window.location.href = `mailto:alkiren44@gmail.com?subject=${subject}&body=${body}`;
-      }, 800);
+    function showState(state) {
+      document.getElementById('authArea').style.display = state === 'auth' ? 'block' : 'none';
+      document.getElementById('loadingArea').style.display = state === 'loading' ? 'block' : 'none';
+      document.getElementById('notFoundArea').style.display = state === 'not_found' ? 'block' : 'none';
+      document.getElementById('confirmArea').style.display = state === 'confirm' ? 'block' : 'none';
+      document.getElementById('successArea').style.display = state === 'success' ? 'block' : 'none';
+    }
+
+    async function signInWithGoogle() {
+      showState('loading');
+      const provider = new firebase.auth.GoogleAuthProvider();
+      try {
+        const result = await auth.signInWithPopup(provider);
+        currentUser = result.user;
+        await checkUserProfile(currentUser);
+      } catch (err) {
+        console.error("Sign-in failed:", err);
+        showState('auth');
+        alert("Google sign-in could not be completed: " + (err.message || err));
+      }
+    }
+
+    async function checkUserProfile(user) {
+      try {
+        const userRef = db.collection("users").document(user.uid);
+        const profileSnap = await userRef.collection("profile").document("main").get();
+
+        if (!profileSnap.exists) {
+          document.getElementById('notFoundEmail').textContent = user.email || "Unknown";
+          showState('not_found');
+          return;
+        }
+
+        const data = profileSnap.data() || {};
+        const prefs = data.prefs || {};
+        cachedHeroName = prefs.username || data.username || "The Hero";
+
+        // Parse Active Companion & Level
+        cachedCompanion = "None";
+        cachedLevel = "1";
+        if (prefs.partner_roster) {
+          try {
+            const roster = typeof prefs.partner_roster === "string" ? JSON.parse(prefs.partner_roster) : prefs.partner_roster;
+            const activeId = prefs.active_partner_id;
+            const activePartner = (Array.isArray(roster) ? roster : []).find(p => p.id === activeId) || (roster[0]);
+            if (activePartner) {
+              cachedCompanion = activePartner.nickname || activePartner.name || "Companion";
+              cachedLevel = activePartner.level || 1;
+            }
+          } catch (e) {
+            console.error("Roster parse failed", e);
+          }
+        }
+
+        document.getElementById('profileEmail').textContent = user.email;
+        document.getElementById('profileHeroName').textContent = cachedHeroName;
+        document.getElementById('profileCompanion').textContent = cachedCompanion;
+        document.getElementById('profileCompanionLevel').textContent = "Lv. " + cachedLevel;
+
+        showState('confirm');
+      } catch (err) {
+        console.error("Profile check failed:", err);
+        showState('auth');
+        alert("Failed to read user cloud profile: " + err.message);
+      }
+    }
+
+    async function executePermanentDeletion() {
+      if (!currentUser) return;
+      
+      const confirmBtn = document.getElementById('btnConfirmDelete');
+      confirmBtn.disabled = true;
+      confirmBtn.innerHTML = '<span class="spinner"></span> Purging All Data...';
+
+      const uid = currentUser.uid;
+      const email = currentUser.email;
+
+      try {
+        const userRef = db.collection("users").document(uid);
+
+        // Delete subcollection documents
+        const deleteBatch = db.batch();
+
+        // Standard profile documents
+        deleteBatch.delete(userRef.collection("profile").document("main"));
+        deleteBatch.delete(userRef.collection("profile").document("backup"));
+        deleteBatch.delete(userRef.collection("profile").document("hero_stats"));
+        deleteBatch.delete(userRef.collection("custom_data").document("ai_seeds"));
+        deleteBatch.delete(userRef.collection("custom_data").document("custom_tasks"));
+
+        await deleteBatch.commit();
+
+        // Purge quests, chronicles, plates, archive subcollections
+        const subcollections = ["quests", "chronicles", "plates", "archive"];
+        for (const sub of subcollections) {
+          const snap = await userRef.collection(sub).get();
+          if (!snap.empty) {
+            const batch = db.batch();
+            snap.forEach(doc => batch.delete(doc.ref));
+            await batch.commit();
+          }
+        }
+
+        // Delete user root document
+        await userRef.delete();
+
+        // Automated Audit Notification to Studio Admin
+        try {
+          await fetch("https://formsubmit.co/ajax/alkiren44@gmail.com", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/json"
+            },
+            body: JSON.stringify({
+              _subject: `[Mundane Audit] Cloud Account Deleted via Web - ${email}`,
+              event: "ACCOUNT_DELETED",
+              userEmail: email,
+              userUid: uid,
+              heroName: cachedHeroName,
+              activeCompanion: `${cachedCompanion} (Lv. ${cachedLevel})`,
+              deletedAt: new Date().toISOString()
+            })
+          });
+        } catch (auditErr) {
+          console.warn("Audit email notification failed:", auditErr);
+        }
+
+        // Revoke and delete Firebase Auth user
+        await currentUser.delete();
+
+        showState('success');
+      } catch (err) {
+        console.error("Deletion failed:", err);
+        confirmBtn.disabled = false;
+        confirmBtn.textContent = "Delete Permanently";
+        alert("Account deletion failed: " + err.message);
+      }
+    }
+
+    async function signOutUser() {
+      try {
+        await auth.signOut();
+      } catch (e) {}
+      currentUser = null;
+      showState('auth');
     }
   </script>
 </body>
