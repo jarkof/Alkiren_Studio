@@ -356,17 +356,20 @@
       margin-bottom: 28px;
     }
     .tier-features li {
-      padding: 8px 0;
+      padding: 9px 0;
       border-bottom: 1px solid rgba(255,255,255,0.05);
       font-size: 0.95rem;
       color: #cbd5e1;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 10px;
+      line-height: 1.5;
     }
     .tier-features li span.check {
       color: var(--emerald);
       font-weight: bold;
+      flex-shrink: 0;
+      margin-top: 2px;
     }
 
     /* Privacy Banner */
@@ -435,7 +438,7 @@
   <section class="hero">
     <span class="hero-badge">✦ In Progress • Android Mobile RPG</span>
     <h1>Mundane: Fantasy Task RPG</h1>
-    <p>Transform your daily chores, work sprints, and routine habits into heroic fantasy quests. Tame over 100 companions, level up attributes, brew elixirs, and chronicle your life as an epic RPG saga.</p>
+    <p>Transform your everyday tasks, work sprints, and project checklists into heroic fantasy quests. Collect over 93 unique companion stages, train classic RPG attributes, equip legendary loot, and adventure through an epic personal saga.</p>
     <div class="hero-actions">
       <span class="btn btn-primary" style="opacity: 0.85; cursor: default;">
         <span>🎮</span> Google Play (Coming Soon)
@@ -464,15 +467,15 @@
         <div class="slider-track" id="sliderTrack">
           <!-- Slide 1 -->
           <div class="slide-item">
-            <img src="assets/marketing/playstore_slide_1_tasks.png?v=5" alt="Tasks and Checklists">
-            <div class="slide-caption">Daily Agenda &amp; Active Expeditions</div>
-            <div class="slide-subcaption">Turn errands, work checklists, and habits into high-stakes quests with real XP rewards.</div>
+            <img src="assets/marketing/playstore_slide_1_tasks.png?v=9" alt="Tasks and Checklists">
+            <div class="slide-caption">Expedition Board &amp; Provisions Ledgers</div>
+            <div class="slide-subcaption">Organize single-task quests with real XP rewards, roll dynamic fantasy loot, and track nested multi-step checklists.</div>
           </div>
           <!-- Slide 2 -->
           <div class="slide-item">
             <img src="assets/marketing/playstore_slide_2_companions.png?v=5" alt="Companions and Field Guide">
-            <div class="slide-caption">100+ Companions &amp; IV Affinities</div>
-            <div class="slide-subcaption">Discover rare species, inspect distinct IV stats, unlock elemental affinities, and trigger evolutions.</div>
+            <div class="slide-caption">93+ Companions &amp; Evolutionary Stages</div>
+            <div class="slide-subcaption">Discover rare species with distinct IVs and tabletop stats, unlock elemental affinities, and trigger evolutions.</div>
           </div>
           <!-- Slide 3 -->
           <div class="slide-item">
@@ -514,44 +517,56 @@
     <!-- Deep Dive Features -->
     <div class="section-header">
       <h2 class="section-title">Built for Real Life, Engineered for Fantasy</h2>
-      <p class="section-desc">Traditional habit trackers punish you with streak resets and harsh penalties. Mundane rewards momentum with high-fantasy depth.</p>
+      <p class="section-desc">Traditional productivity trackers punish you with streak resets and harsh penalties. Mundane rewards momentum with high-fantasy depth and zero-guilt flexibility.</p>
     </div>
 
     <div class="features-grid">
       <div class="feature-card">
         <div class="feature-icon">🛡️</div>
-        <h3>No-Guilt Task Management</h3>
-        <p>No punitive health loss when real life gets overwhelming. Overdue tasks rest gracefully without destroying your progress. Daily quests roll over cleanly so you always start fresh.</p>
+        <h3>Guilt-Free Productivity</h3>
+        <p>Never lose health when life gets hectic. Personal to-dos stay open and completable at your own pace without streak punishments, while daily starter deeds and tavern requests keep each morning fresh.</p>
       </div>
 
       <div class="feature-card">
         <div class="feature-icon">🐉</div>
-        <h3>Deep Companion Metagame</h3>
-        <p>Tame companions with individual values (IVs) across HP, Attack, Defense, and Speed. Equip stat-boosting artifacts, brew custom level-up potions, and watch companions evolve into grand mythic beasts.</p>
+        <h3>D&amp;D-Style Companion Progression</h3>
+        <p>Raise companions featuring distinct Individual Values (IVs) and classic tabletop attributes: Strength, Dexterity, Constitution, and Wisdom. Equip spell pages and ancient artifacts to empower your partner.</p>
       </div>
 
       <div class="feature-card">
-        <div class="feature-icon">📜</div>
-        <h3>The Procedural Bard Engine</h3>
-        <p>Your day isn't just a checked-off list—it's a story. Our narrative engine dynamically converts boring tasks like "folding laundry" into "banishing the cursed cloth wraith" in your personal daily adventure log.</p>
-      </div>
-
-      <div class="feature-card">
-        <div class="feature-icon">🍻</div>
-        <h3>The Living Tavern &amp; Merchants</h3>
-        <p>Interact with townsfolk like Gary the Barkeep, Dr. Jeremy, and merchant traders. Build relationship affinity, gift found trinkets, and unlock exclusive side stories.</p>
+        <div class="feature-icon">⚔️</div>
+        <h3>Story Battles &amp; Narrative Combat</h3>
+        <p>Completing tasks triggers dynamic fantasy encounters and rolls for loot. Battles are narrative-driven: your equipped spells, artifacts, and stats directly increase your odds against higher-level monsters and dictate battle outcomes.</p>
       </div>
 
       <div class="feature-card">
         <div class="feature-icon">🏥</div>
-        <h3>Sanctuary Rehabilitation</h3>
-        <p>Triage companions who sustained battle injuries during tough weeks. Administer herbal elixirs, arrange hospital beds, and restore full combat morale.</p>
+        <h3>Sanctuary Clinic &amp; Recovery</h3>
+        <p>Care for wounded or weary companions with clinic physician Mira the Gentle. Recover health with rest, administer restorative potions, and cure status ailments like poison and gloom blight with targeted antidotes.</p>
       </div>
 
       <div class="feature-card">
-        <div class="feature-icon">🎙️</div>
-        <h3>Real-Time Voice Dictation</h3>
-        <p>Speak your deeds aloud with streaming on-device speech recognition. Partial sentences format directly into quest titles and heroic descriptions in real time.</p>
+        <div class="feature-icon">📖</div>
+        <h3>Field Guide &amp; Compendium</h3>
+        <p>Inspect your comprehensive registry tracking all discovered companions across 90+ forms, 20+ NPC wanderers with social affinity levels, and 40+ distinct monsters spanning Common to Legendary tiers.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🍻</div>
+        <h3>The Wanderer's Hearth Tavern <span style="font-size:0.75rem; background:rgba(168,85,247,0.2); color:#c084fc; border:1px solid rgba(168,85,247,0.4); padding:2px 8px; border-radius:12px; vertical-align:middle; margin-left:6px;">PRO</span></h3>
+        <p>Gather around the warm hearth with 20+ unique NPC wanderers like Gromm Stoneshoulder and Finnegan the Bard. Present thoughtful gifts, accept custom NPC requests, and unlock shop discounts and companion vouchers.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📜</div>
+        <h3>The Bard's Chronicle &amp; E-Book <span style="font-size:0.75rem; background:rgba(168,85,247,0.2); color:#c084fc; border:1px solid rgba(168,85,247,0.4); padding:2px 8px; border-radius:12px; vertical-align:middle; margin-left:6px;">PRO</span></h3>
+        <p>The procedural Bard weaves your completed deeds into an episodic first-person adventure chronicle. Generate on-demand AI storybook illustrations and export your heroic saga directly to EPUB e-books.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📱</div>
+        <h3>Home Screen Widgets &amp; Voice AI <span style="font-size:0.75rem; background:rgba(168,85,247,0.2); color:#c084fc; border:1px solid rgba(168,85,247,0.4); padding:2px 8px; border-radius:12px; vertical-align:middle; margin-left:6px;">PRO</span></h3>
+        <p>Access your adventure instantly with 3 interactive Android home screen widgets for quests, companion vitals, and checklists, accompanied by hands-free real-time voice dictation for quick quest capture.</p>
       </div>
     </div>
 
@@ -567,15 +582,15 @@
         <div>
           <div class="tier-name">Free Adventurer</div>
           <div class="tier-price">$0</div>
-          <div class="tier-sub">Forever free • Offline Single Source of Truth</div>
+          <div class="tier-sub">Forever free • Cloud Progression Sync &amp; 100% Offline-Playable</div>
           <ul class="tier-features">
-            <li><span class="check">✓</span> Full core quest &amp; checklist engine</li>
-            <li><span class="check">✓</span> 100+ companion species &amp; field guide</li>
-            <li><span class="check">✓</span> Local daily procedural chronicle generation</li>
-            <li><span class="check">✓</span> Tavern NPC visits &amp; surplus trades</li>
-            <li><span class="check">✓</span> Full sanctuary &amp; rehabilitation system</li>
-            <li><span class="check">✓</span> 8-day rolling history archive</li>
-            <li><span class="check">✓</span> Zero third-party advertisements</li>
+            <li><span class="check">✓</span> <span>Full core quest &amp; checklist engine (Agenda &amp; Ledgers)</span></li>
+            <li><span class="check">✓</span> <span>90+ companion evolution stages &amp; growing</span></li>
+            <li><span class="check">✓</span> <span>Event-driven RPG encounters with XP, gold, and loot</span></li>
+            <li><span class="check">✓</span> <span>Past task resolution log with 7-day calendar lookback</span></li>
+            <li><span class="check">✓</span> <span>Wilderness clinic with physician Mira, rest, and potions</span></li>
+            <li><span class="check">✓</span> <span>Multi-device cloud sync and 100% offline play</span></li>
+            <li><span class="check">✓</span> <span>Zero third-party advertisements or trackers</span></li>
           </ul>
         </div>
         <span class="btn btn-outline" style="text-align:center; justify-content:center; opacity: 0.85; cursor: default;">Coming Soon to Google Play</span>
@@ -589,13 +604,16 @@
           <div class="tier-price">$3.99 <span style="font-size:1.1rem; font-weight:400; color:var(--text-muted);">/ month</span></div>
           <div class="tier-sub">or $34.99 / year (Save 25%) • Cancel anytime</div>
           <ul class="tier-features">
-            <li><span class="check">✓</span> <strong>Everything in Free</strong></li>
-            <li><span class="check">✓</span> <strong>Encrypted Cloud Auto-Sync</strong> across all your Android devices</li>
-            <li><span class="check">✓</span> <strong>Unlimited AI Ledger Staging</strong> for multi-task bulk parsing</li>
-            <li><span class="check">✓</span> <strong>30-Day Extended Chronicle Archive</strong> &amp; historical lookback</li>
-            <li><span class="check">✓</span> <strong>Priority Chronicle Generation</strong> with Vertex AI cloud models</li>
-            <li><span class="check">✓</span> <strong>Automated Cloud Backup</strong> &amp; instant restoration</li>
-            <li><span class="check">✓</span> Support independent indie RPG development</li>
+            <li><span class="check">✓</span> <span><strong>Everything in Free</strong></span></li>
+            <li><span class="check">✓</span> <span><strong>The Wanderer's Hearth Tavern</strong> &amp; 20+ visiting NPCs</span></li>
+            <li><span class="check">✓</span> <span><strong>NPC Affinity &amp; Gift Giving</strong> with shop discounts</span></li>
+            <li><span class="check">✓</span> <span><strong>The Bard's Chronicle Journal</strong> with e-book export</span></li>
+            <li><span class="check">✓</span> <span><strong>50 Monthly AI Storybook Illustrations</strong></span></li>
+            <li><span class="check">✓</span> <span><strong>Interactive Home Screen Widgets</strong></span></li>
+            <li><span class="check">✓</span> <span><strong>AI Task &amp; List Assistant</strong> with voice dictation</span></li>
+            <li><span class="check">✓</span> <span><strong>2x NPC Gold Tips</strong> &amp; 1.25x XP Multipliers</span></li>
+            <li><span class="check">✓</span> <span><strong>Infinite Cloud History</strong> with full past lookback</span></li>
+            <li><span class="check">✓</span> <span>Support independent indie RPG development</span></li>
           </ul>
         </div>
         <span class="btn btn-primary" style="text-align:center; justify-content:center; opacity: 0.85; cursor: default;">Available at Launch (Pro Pass)</span>

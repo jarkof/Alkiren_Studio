@@ -300,13 +300,31 @@
             <span class="meta-value" id="profileHeroName"></span>
           </div>
           <div class="account-meta-row">
+            <span class="meta-label">Hero Treasury:</span>
+            <span class="meta-value" id="profileGold" style="color:#f59e0b;"></span>
+          </div>
+          <div class="account-meta-row">
             <span class="meta-label">Active Companion:</span>
             <span class="meta-value" id="profileCompanion"></span>
           </div>
           <div class="account-meta-row">
-            <span class="meta-label">Companion Level:</span>
+            <span class="meta-label">Companion Status:</span>
             <span class="meta-value" id="profileCompanionLevel"></span>
           </div>
+          <div class="account-meta-row">
+            <span class="meta-label">Bonded Companions:</span>
+            <span class="meta-value" id="profileRosterCount"></span>
+          </div>
+          <div class="account-meta-row">
+            <span class="meta-label">AI Chronicle Plates:</span>
+            <span class="meta-value" id="profileIllustrations"></span>
+          </div>
+        </div>
+
+        <!-- Illustration Loss Warning -->
+        <div id="illustrationWarningBox" class="warning-box" style="display:none; border-color: rgba(239, 68, 68, 0.5); background: rgba(239, 68, 68, 0.12); color: #fca5a5;">
+          <strong>⚠️ AI Illustration Warning:</strong>
+          You have <strong id="illustrationWarningCount" style="color:#fff;">0</strong> AI-generated Chronicle scene illustration(s) saved in the cloud. Permanently deleting your account will purge these cloud records; you will permanently lose access to any illustrations you have not downloaded to your device!
         </div>
 
         <div class="status-banner error" style="margin-bottom: 16px;">
@@ -391,10 +409,38 @@
       }
     }
 
+    const SPECIES_NAME_MAP = {
+      "partner1": "Wise Droplet",
+      "partner2": "Verdant Sproutling",
+      "partner3": "Pyre Bighorn",
+      "partner4": "Gale Hawk",
+      "partner_penguin": "Frost Pipsqueak",
+      "partner_tide_hermit": "Tidepool Hermit",
+      "partner_moss_snail": "Grotto Snail",
+      "partner_cinder_hare": "Cinder Hare",
+      "partner_ember_kit": "Ember Kit",
+      "partner_breeze_sparrow": "Breeze Sparrow",
+      "partner_lantern_mouse": "Lantern Mouse",
+      "partner_mimic_pal": "Mimic Pal",
+      "partner_astral_wisp": "Astral Wisp",
+      "partner_acid_slime": "Acid Puddle",
+      "partner_rock_golem": "Rock Golem",
+      "partner_glimmer_beetle": "Glimmer Beetle",
+      "partner_shadow_hound": "Shadow Hound",
+      "partner_cloud": "Nimbus Pup",
+      "partner_fennec": "Fennec Fox",
+      "partner_abyssal_manta": "Abyssal Manta",
+      "partner_kelpie": "Mist Kelpie",
+      "partner_kirin": "Thunder Kirin",
+      "partner_spectral_monarch": "Spectral Monarch",
+      "partner_tempest_wyvern": "Tempest Wyvern",
+      "partner_solar_phoenix": "Solar Phoenix"
+    };
+
     async function checkUserProfile(user) {
       try {
-        const userRef = db.collection("users").document(user.uid);
-        const profileSnap = await userRef.collection("profile").document("main").get();
+        const userRef = db.collection("users").doc(user.uid);
+        const profileSnap = await userRef.collection("profile").doc("main").get();
 
         if (!profileSnap.exists) {
           document.getElementById('notFoundEmail').textContent = user.email || "Unknown";
@@ -404,29 +450,64 @@
 
         const data = profileSnap.data() || {};
         const prefs = data.prefs || {};
-        cachedHeroName = prefs.username || data.username || "The Hero";
+        const heroName = prefs.username || data.username || "The Hero";
+        const heroLevel = prefs.user_level ? Math.round(Number(prefs.user_level)) : 1;
+        const gold = prefs.user_gold ? Number(prefs.user_gold) : (prefs.gold ? Number(prefs.gold) : 0);
 
-        // Parse Active Companion & Level
+        cachedHeroName = heroName;
+
+        // Parse Active Companion, Level & Stats
         cachedCompanion = "None";
         cachedLevel = "1";
+        let companionHp = 0;
+        let companionMp = 0;
+        let rosterCount = 0;
+
         if (prefs.partner_roster) {
           try {
             const roster = typeof prefs.partner_roster === "string" ? JSON.parse(prefs.partner_roster) : prefs.partner_roster;
+            const rosterList = Array.isArray(roster) ? roster : [];
+            rosterCount = rosterList.length;
             const activeId = prefs.active_partner_id;
-            const activePartner = (Array.isArray(roster) ? roster : []).find(p => p.id === activeId) || (roster[0]);
+            const activePartner = rosterList.find(p => p.id === activeId) || rosterList[0];
             if (activePartner) {
-              cachedCompanion = activePartner.nickname || activePartner.name || "Companion";
-              cachedLevel = activePartner.level || 1;
+              const typeId = activePartner.typeId || "";
+              const species = SPECIES_NAME_MAP[typeId] || (activePartner.name && activePartner.name !== "First Partner" ? activePartner.name : "Wise Droplet");
+              const nickname = activePartner.nickname;
+              cachedCompanion = nickname ? `${nickname} (${species})` : species;
+              cachedLevel = Math.round(activePartner.currentLevel || activePartner.level || 1);
+              companionHp = Math.round(activePartner.currentHealth || activePartner.maxHealth || 100);
+              companionMp = Math.round(activePartner.currentMp || activePartner.maxMp || 30);
             }
           } catch (e) {
             console.error("Roster parse failed", e);
           }
         }
 
+        // Check Chronicle Plates (AI Illustrations)
+        let illustrationCount = 0;
+        try {
+          const platesSnap = await userRef.collection("plates").get();
+          illustrationCount = platesSnap.size;
+        } catch (e) {
+          console.warn("Could not fetch plates count:", e);
+        }
+
         document.getElementById('profileEmail').textContent = user.email;
-        document.getElementById('profileHeroName').textContent = cachedHeroName;
+        document.getElementById('profileHeroName').textContent = `${heroName} (Lv. ${heroLevel})`;
+        document.getElementById('profileGold').textContent = `${gold.toLocaleString()} Gold`;
         document.getElementById('profileCompanion').textContent = cachedCompanion;
-        document.getElementById('profileCompanionLevel').textContent = "Lv. " + cachedLevel;
+        document.getElementById('profileCompanionLevel').textContent = `Lv. ${cachedLevel} • ${companionHp} HP / ${companionMp} MP`;
+        document.getElementById('profileRosterCount').textContent = `${rosterCount} ${rosterCount === 1 ? 'Companion' : 'Companions'} Bonded`;
+        document.getElementById('profileIllustrations').textContent = `${illustrationCount} ${illustrationCount === 1 ? 'Plate' : 'Plates'} Saved`;
+
+        const warningBox = document.getElementById('illustrationWarningBox');
+        if (illustrationCount > 0) {
+          document.getElementById('illustrationWarningCount').textContent = illustrationCount;
+          warningBox.style.display = 'block';
+        } else {
+          warningBox.style.display = 'none';
+        }
 
         showState('confirm');
       } catch (err) {
@@ -447,17 +528,17 @@
       const email = currentUser.email;
 
       try {
-        const userRef = db.collection("users").document(uid);
+        const userRef = db.collection("users").doc(uid);
 
         // Delete subcollection documents
         const deleteBatch = db.batch();
 
         // Standard profile documents
-        deleteBatch.delete(userRef.collection("profile").document("main"));
-        deleteBatch.delete(userRef.collection("profile").document("backup"));
-        deleteBatch.delete(userRef.collection("profile").document("hero_stats"));
-        deleteBatch.delete(userRef.collection("custom_data").document("ai_seeds"));
-        deleteBatch.delete(userRef.collection("custom_data").document("custom_tasks"));
+        deleteBatch.delete(userRef.collection("profile").doc("main"));
+        deleteBatch.delete(userRef.collection("profile").doc("backup"));
+        deleteBatch.delete(userRef.collection("profile").doc("hero_stats"));
+        deleteBatch.delete(userRef.collection("custom_data").doc("ai_seeds"));
+        deleteBatch.delete(userRef.collection("custom_data").doc("custom_tasks"));
 
         await deleteBatch.commit();
 
