@@ -316,7 +316,7 @@
             <span class="meta-value" id="profileRosterCount"></span>
           </div>
           <div class="account-meta-row">
-            <span class="meta-label">AI Chronicle Plates:</span>
+            <span class="meta-label">Chronicle Illustrations:</span>
             <span class="meta-value" id="profileIllustrations"></span>
           </div>
         </div>
@@ -499,7 +499,7 @@
         document.getElementById('profileCompanion').textContent = cachedCompanion;
         document.getElementById('profileCompanionLevel').textContent = `Lv. ${cachedLevel} • ${companionHp} HP / ${companionMp} MP`;
         document.getElementById('profileRosterCount').textContent = `${rosterCount} ${rosterCount === 1 ? 'Companion' : 'Companions'} Bonded`;
-        document.getElementById('profileIllustrations').textContent = `${illustrationCount} ${illustrationCount === 1 ? 'Plate' : 'Plates'} Saved`;
+        document.getElementById('profileIllustrations').textContent = `${illustrationCount} ${illustrationCount === 1 ? 'Illustration' : 'Illustrations'} Saved`;
 
         const warningBox = document.getElementById('illustrationWarningBox');
         if (illustrationCount > 0) {
